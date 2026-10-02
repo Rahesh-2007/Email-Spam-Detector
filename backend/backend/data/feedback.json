@@ -1,0 +1,13 @@
+{
+  "corrections": [
+    {
+      "email_id": "demo-1",
+      "timestamp": "2026-10-02T07:02:26.069063Z",
+      "original_category": "Phishing Spam",
+      "user_marked_category": "Phishing Spam",
+      "is_spam_corrected": false,
+      "notes": "Accurately detected phishing link"
+    }
+  ],
+  "ratings": []
+}

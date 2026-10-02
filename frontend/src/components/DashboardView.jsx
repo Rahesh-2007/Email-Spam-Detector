@@ -34,25 +34,27 @@ export default function DashboardView({ stats, emails, onSelectEmail, onViewInbo
 
   const getCategoryColor = (cat) => {
     switch (cat) {
-      case 'Phishing Spam': return '#ef4444';
-      case 'Financial Scam': return '#f97316';
-      case 'Malicious Link Spam': return '#dc2626';
-      case 'Lottery/Prize Spam': return '#eab308';
-      case 'Job Spam': return '#a855f7';
-      case 'Advertisement Spam': return '#3b82f6';
-      case 'Clean / Safe': return '#10b981';
-      default: return '#64748b';
+      case 'Phishing Spam': return '#dc2626';
+      case 'Financial Scam': return '#ea580c';
+      case 'Malicious Link Spam': return '#b91c1c';
+      case 'Lottery/Prize Spam': return '#d97706';
+      case 'Job Spam': return '#7c3aed';
+      case 'Advertisement Spam': return '#2563eb';
+      case 'Clean / Safe': return '#16a34a';
+      default: return '#6b7280';
     }
   };
 
   return (
-    <div className="fade-in" style={{ padding: '0 20px 40px 20px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="fade-in" style={{ padding: '20px 24px 40px 24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       
       {/* Welcome & Security Banner */}
-      <div className="glass-panel" style={{
-        padding: '24px 30px',
-        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%)',
-        border: '1px solid rgba(99, 102, 241, 0.25)',
+      <div style={{
+        padding: '24px 28px',
+        backgroundColor: '#ffffff',
+        border: '1px solid #e2e8f0',
+        borderRadius: '16px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -61,23 +63,34 @@ export default function DashboardView({ stats, emails, onSelectEmail, onViewInbo
       }}>
         <div style={{ maxWidth: '650px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-            <span className="badge" style={{ background: 'rgba(99, 102, 241, 0.2)', color: '#818cf8', border: '1px solid rgba(99, 102, 241, 0.4)' }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#eff6ff',
+              color: '#1a73e8',
+              border: '1px solid #bfdbfe',
+              fontSize: '0.75rem',
+              fontWeight: '700',
+              padding: '3px 10px',
+              borderRadius: '20px'
+            }}>
               <Activity size={13} /> Real-Time Security Intelligence
             </span>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>
               Updated {new Date().toLocaleTimeString()}
             </span>
           </div>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#1f2937', letterSpacing: '-0.02em', marginBottom: '8px' }}>
             AI Email Security & Analytics Overview
           </h2>
-          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-            Intelligent neural threat analysis across your mailbox. Filtering phishing exploits, malicious links, multi-lingual scams, and generating executive summaries & replies.
+          <p style={{ fontSize: '0.875rem', color: '#4b5563', lineHeight: '1.5', margin: 0 }}>
+            Intelligent neural threat analysis across your mailbox. Filtering phishing exploits, malicious links, multi-lingual scams, and generating executive summaries & smart replies.
           </p>
         </div>
 
         <div style={{ display: 'flex', gap: '12px' }}>
-          <button onClick={onViewInbox} className="btn btn-primary" style={{ padding: '12px 20px' }}>
+          <button onClick={onViewInbox} className="btn btn-primary" style={{ padding: '10px 18px' }}>
             <Mail size={16} />
             Explore Full Inbox ({total_emails})
             <ArrowRight size={16} />
@@ -86,272 +99,207 @@ export default function DashboardView({ stats, emails, onSelectEmail, onViewInbo
       </div>
 
       {/* KPI Cards Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+        
         {/* Total Scanned */}
-        <div className="glass-panel" style={{ padding: '20px' }}>
+        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '600' }}>
-              Total Scanned Emails
+            <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '600' }}>
+              Total Scanned
             </span>
-            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(99, 102, 241, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Mail size={18} color="#818cf8" />
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Mail size={18} color="#1a73e8" />
             </div>
           </div>
-          <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--text-primary)' }}>
+          <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1f2937' }}>
             {total_emails}
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Active in current session
+          <div style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '4px' }}>
+            Emails in current session
           </div>
         </div>
 
         {/* Spam Intercepted */}
-        <div className="glass-panel" style={{ padding: '20px' }}>
+        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '600' }}>
-              Threats & Spam Detected
+            <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '600' }}>
+              Threats & Spam Flagged
             </span>
-            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(239, 68, 68, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <ShieldAlert size={18} color="#ef4444" />
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#fef2f2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <ShieldAlert size={18} color="#dc2626" />
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#ef4444' }}>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#dc2626' }}>
               {spam_count}
             </div>
-            <span className="badge badge-danger" style={{ fontSize: '0.75rem' }}>
-              {spam_percentage}% of total
+            <span style={{ fontSize: '0.85rem', fontWeight: '600', color: '#dc2626' }}>
+              ({spam_percentage}%)
             </span>
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Phishing, Scams, Ads & Malware
+          <div style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '4px' }}>
+            Multi-factor flagged threats
           </div>
         </div>
 
-        {/* Clean Emails */}
-        <div className="glass-panel" style={{ padding: '20px' }}>
+        {/* Clean Verified */}
+        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '600' }}>
-              Verified Clean (Ham)
+            <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '600' }}>
+              Clean Messages
             </span>
-            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <ShieldCheck size={18} color="#10b981" />
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <ShieldCheck size={18} color="#16a34a" />
             </div>
           </div>
-          <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10b981' }}>
+          <div style={{ fontSize: '2rem', fontWeight: '800', color: '#16a34a' }}>
             {clean_count}
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Legitimate business & personal emails
+          <div style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '4px' }}>
+            Verified safe emails
           </div>
         </div>
 
         {/* Security Health Score */}
-        <div className="glass-panel" style={{ padding: '20px' }}>
+        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '600' }}>
+            <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '600' }}>
               Security Health Index
             </span>
-            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(6, 182, 212, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Zap size={18} color="#06b6d4" />
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#faf5ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <TrendingUp size={18} color="#7c3aed" />
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-            <div style={{ 
-              fontSize: '2rem', 
-              fontWeight: '800', 
-              color: security_health_score >= 80 ? '#10b981' : security_health_score >= 50 ? '#f59e0b' : '#ef4444' 
-            }}>
-              {security_health_score}%
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#7c3aed' }}>
+              {security_health_score}/100
             </div>
-            <span className="badge" style={{ 
-              background: security_health_score >= 80 ? 'rgba(16,185,129,0.15)' : 'rgba(245,158,11,0.15)',
-              color: security_health_score >= 80 ? '#10b981' : '#f59e0b'
-            }}>
-              {security_health_score >= 80 ? 'Shielded' : 'Action Needed'}
-            </span>
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-            Avg Threat Risk: {average_risk_score}/100
+          <div style={{ width: '100%', height: '6px', backgroundColor: '#e2e8f0', borderRadius: '3px', marginTop: '8px', overflow: 'hidden' }}>
+            <div style={{
+              width: `${security_health_score}%`,
+              height: '100%',
+              backgroundColor: '#7c3aed'
+            }} />
           </div>
         </div>
+
       </div>
 
-      {/* Main Charts & Category Breakdown */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '20px' }}>
+      {/* Main Grid: Category Distribution & Critical Threat Feed */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px' }}>
         
-        {/* Spam Categorization Breakdown */}
-        <div className="glass-panel" style={{ padding: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
-            <PieChart size={18} color="#818cf8" />
-            <h3 style={{ fontSize: '1.05rem', fontWeight: '700' }}>
-              Spam Categorization Distribution
+        {/* Category Breakdown */}
+        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+            <PieChart size={18} color="#1a73e8" />
+            <h3 style={{ fontSize: '1rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
+              Threat Categorization Breakdown
             </h3>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {Object.entries(category_distribution).map(([category, count]) => {
-              const pct = total_emails > 0 ? Math.round((count / total_emails) * 100) : 0;
-              const barColor = getCategoryColor(category);
-
-              return (
-                <div key={category} style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
-                    <span style={{ fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: barColor }} />
-                      {category}
-                    </span>
-                    <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>
-                      {count} ({pct}%)
-                    </span>
+            {Object.keys(category_distribution).length === 0 ? (
+              <div style={{ color: '#6b7280', fontSize: '0.85rem', textAlign: 'center', padding: '20px 0' }}>
+                No categories scanned yet
+              </div>
+            ) : (
+              Object.entries(category_distribution).map(([cat, count]) => {
+                const percentage = total_emails > 0 ? Math.round((count / total_emails) * 100) : 0;
+                const color = getCategoryColor(cat);
+                return (
+                  <div key={cat}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.825rem', marginBottom: '4px' }}>
+                      <span style={{ fontWeight: '600', color: '#374151' }}>{cat}</span>
+                      <span style={{ color: '#6b7280' }}>
+                        {count} ({percentage}%)
+                      </span>
+                    </div>
+                    <div style={{ width: '100%', height: '8px', backgroundColor: '#f1f5f9', borderRadius: '4px', overflow: 'hidden' }}>
+                      <div style={{
+                        width: `${percentage}%`,
+                        height: '100%',
+                        backgroundColor: color,
+                        borderRadius: '4px',
+                        transition: 'width 0.5s ease'
+                      }} />
+                    </div>
                   </div>
-                  <div style={{ width: '100%', height: '8px', background: 'var(--bg-secondary)', borderRadius: '4px', overflow: 'hidden' }}>
-                    <div style={{
-                      width: `${pct}%`,
-                      height: '100%',
-                      background: barColor,
-                      borderRadius: '4px',
-                      transition: 'width 0.5s ease-in-out'
-                    }} />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
 
-        {/* Threat Levels & Language Breakdown */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {/* Threat Levels Card */}
-          <div className="glass-panel" style={{ padding: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <AlertTriangle size={18} color="#f59e0b" />
-              <h3 style={{ fontSize: '1.05rem', fontWeight: '700' }}>
-                Threat Severity Levels
+        {/* Critical Threat Alert Feed */}
+        <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <AlertTriangle size={18} color="#dc2626" />
+              <h3 style={{ fontSize: '1rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
+                High-Severity Threat Feed
               </h3>
             </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-              {[
-                { label: 'Critical Threat', count: threat_levels['Critical Threat'] || 0, color: '#ef4444', bg: 'rgba(239, 68, 68, 0.1)' },
-                { label: 'High Risk', count: threat_levels['High Risk'] || 0, color: '#f97316', bg: 'rgba(249, 115, 22, 0.1)' },
-                { label: 'Moderate Spam', count: threat_levels['Moderate'] || 0, color: '#eab308', bg: 'rgba(234, 179, 8, 0.1)' },
-                { label: 'Safe / Clean', count: threat_levels['Safe'] || 0, color: '#10b981', bg: 'rgba(16, 185, 129, 0.1)' }
-              ].map(item => (
-                <div key={item.label} style={{
-                  padding: '12px 16px',
-                  background: item.bg,
-                  border: `1px solid ${item.color}33`,
-                  borderRadius: '10px'
-                }}>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: '600' }}>
-                    {item.label}
-                  </div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: '800', color: item.color, marginTop: '2px' }}>
-                    {item.count}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <span style={{
+              fontSize: '0.75rem',
+              fontWeight: '700',
+              padding: '2px 8px',
+              borderRadius: '12px',
+              backgroundColor: '#fee2e2',
+              color: '#dc2626'
+            }}>
+              {criticalThreats.length} Critical
+            </span>
           </div>
 
-          {/* Multilingual Detection Card */}
-          <div className="glass-panel" style={{ padding: '20px 24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-              <Globe size={18} color="#06b6d4" />
-              <h3 style={{ fontSize: '1.05rem', fontWeight: '700' }}>
-                Languages Detected in Mailbox
-              </h3>
-            </div>
-
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {Object.entries(language_distribution).map(([lang, count]) => (
-                <div key={lang} style={{
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-subtle)',
-                  padding: '6px 12px',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '0.825rem'
-                }}>
-                  <span style={{ fontWeight: '600' }}>{lang}</span>
-                  <span className="badge" style={{ background: 'rgba(99,102,241,0.15)', color: '#818cf8', padding: '1px 6px' }}>
-                    {count} emails
-                  </span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '340px', overflowY: 'auto' }}>
+            {criticalThreats.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '30px 20px', color: '#16a34a' }}>
+                <ShieldCheck size={36} style={{ margin: '0 auto 8px auto' }} />
+                <div style={{ fontWeight: '600' }}>No Critical Threats Active</div>
+                <div style={{ fontSize: '0.8rem', color: '#6b7280' }}>Your mailbox is free of high-risk exploits.</div>
+              </div>
+            ) : (
+              criticalThreats.map((threat) => (
+                <div
+                  key={threat.id}
+                  onClick={() => {
+                    onSelectEmail(threat);
+                    onViewInbox();
+                  }}
+                  style={{
+                    padding: '12px 14px',
+                    borderRadius: '8px',
+                    backgroundColor: '#fff5f5',
+                    border: '1px solid #fed7d7',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.825rem', fontWeight: '700', color: '#9b2c2c' }}>
+                      {threat.security?.category || 'Exploit Flagged'}
+                    </span>
+                    <span style={{ fontSize: '0.75rem', fontWeight: '800', color: '#dc2626' }}>
+                      {threat.security?.risk_score}% Risk
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '0.825rem', fontWeight: '600', color: '#1f2937', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {threat.subject}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+                    Sender: {threat.sender}
+                  </div>
                 </div>
-              ))}
-            </div>
+              ))
+            )}
           </div>
         </div>
 
       </div>
-
-      {/* Critical Threat Alerts Feed */}
-      {criticalThreats.length > 0 && (
-        <div className="glass-panel" style={{ padding: '24px', border: '1px solid rgba(239, 68, 68, 0.4)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <ShieldAlert size={20} color="#ef4444" />
-              <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#ef4444' }}>
-                Urgent Security Alerts: High-Risk Attacks Detected
-              </h3>
-            </div>
-            <span className="badge badge-danger">
-              {criticalThreats.length} Action Required
-            </span>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {criticalThreats.map(email => (
-              <div 
-                key={email.id}
-                onClick={() => {
-                  onSelectEmail(email);
-                  onViewInbox();
-                }}
-                style={{
-                  background: 'rgba(239, 68, 68, 0.06)',
-                  border: '1px solid rgba(239, 68, 68, 0.25)',
-                  borderRadius: '10px',
-                  padding: '14px 18px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '16px',
-                  cursor: 'pointer',
-                  transition: 'background 0.2s ease'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                    <span className="badge badge-danger" style={{ fontSize: '0.7rem' }}>
-                      {email.security?.category || 'Phishing Attack'}
-                    </span>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                      From: {email.sender}
-                    </span>
-                  </div>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: '700', color: 'var(--text-primary)' }}>
-                    {email.subject}
-                  </h4>
-                  {email.security?.threats_found?.length > 0 && (
-                    <p style={{ fontSize: '0.785rem', color: '#f87171', marginTop: '4px' }}>
-                      ⚠️ {email.security.threats_found[0]}
-                    </p>
-                  )}
-                </div>
-
-                <button className="btn btn-sm btn-danger" style={{ flexShrink: 0 }}>
-                  Inspect Threat
-                  <ArrowRight size={14} />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
     </div>
   );

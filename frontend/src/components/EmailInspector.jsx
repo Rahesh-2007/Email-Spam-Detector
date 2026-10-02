@@ -17,36 +17,40 @@ import {
   Clock,
   Languages,
   RefreshCw,
-  ExternalLink
+  ExternalLink,
+  ChevronRight,
+  ThumbsUp,
+  ThumbsDown,
+  Info
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 const ALL_LANGUAGES = [
   { code: 'en', name: 'English' },
-  { code: 'ta', name: 'Tamil (தமிழ்)' },
-  { code: 'hi', name: 'Hindi (हिन्दी)' },
-  { code: 'te', name: 'Telugu (తెలుగు)' },
-  { code: 'ml', name: 'Malayalam (മലയാളം)' },
-  { code: 'kn', name: 'Kannada (ಕನ್ನಡ)' },
-  { code: 'bn', name: 'Bengali (বাংলা)' },
-  { code: 'es', name: 'Spanish (Español)' },
-  { code: 'fr', name: 'French (Français)' },
+  { code: 'ta', name: 'Tamil (?????)' },
+  { code: 'hi', name: 'Hindi (??????)' },
+  { code: 'te', name: 'Telugu (??????)' },
+  { code: 'ml', name: 'Malayalam (??????)' },
+  { code: 'kn', name: 'Kannada (?????)' },
+  { code: 'bn', name: 'Bengali (?????)' },
+  { code: 'es', name: 'Spanish (EspaÃ±ol)' },
+  { code: 'fr', name: 'French (FranÃ§ais)' },
   { code: 'de', name: 'German (Deutsch)' },
   { code: 'zh-cn', name: 'Chinese (Simplified)' },
-  { code: 'ja', name: 'Japanese (日本語)' },
-  { code: 'ar', name: 'Arabic (العربية)' },
-  { code: 'ru', name: 'Russian (Русский)' }
+  { code: 'ja', name: 'Japanese (???)' },
+  { code: 'ar', name: 'Arabic (???????)' },
+  { code: 'ru', name: 'Russian (???????)' }
 ];
 
 const ALL_CATEGORIES = [
-  "Clean / Safe",
-  "Advertisement Spam",
-  "Phishing Spam",
-  "Financial Scam",
-  "Job Spam",
-  "Lottery/Prize Spam",
-  "Malicious Link Spam",
-  "Other Spam"
+  'Clean / Safe',
+  'Advertisement Spam',
+  'Phishing Spam',
+  'Financial Scam',
+  'Job Spam',
+  'Lottery/Prize Spam',
+  'Malicious Link Spam',
+  'Other Spam'
 ];
 
 export default function EmailInspector({ email, onTranslate, onFeedback, onQuickStatusToggle }) {
@@ -55,7 +59,7 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
   const [copied, setCopied] = useState(false);
   const [replyText, setReplyText] = useState('');
   
-  // Built-in Translation state
+  // Translation state
   const [targetLang, setTargetLang] = useState('en');
   const [translating, setTranslating] = useState(false);
   const [translatedResult, setTranslatedResult] = useState(null);
@@ -72,7 +76,11 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
 
   if (!email) {
     return (
-      <div className="glass-panel" style={{
+      <div style={{
+        backgroundColor: '#ffffff',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
         height: '100%',
         minHeight: '480px',
         display: 'flex',
@@ -86,18 +94,18 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
           width: '64px',
           height: '64px',
           borderRadius: '50%',
-          background: 'var(--bg-secondary)',
+          backgroundColor: '#eff6ff',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '16px'
         }}>
-          <Inbox size={32} color="var(--text-muted)" />
+          <Inbox size={32} color="#1a73e8" />
         </div>
-        <h3 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '6px' }}>
-          Select an Email to Open
+        <h3 style={{ fontSize: '1.2rem', fontWeight: '700', color: '#1f2937', marginBottom: '6px' }}>
+          Select an Email to Inspect
         </h3>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', maxWidth: '340px' }}>
+        <p style={{ fontSize: '0.85rem', color: '#6b7280', maxWidth: '340px' }}>
           Click on any email from your inbox to view full content, live spam classification, built-in translator, summary, and smart replies.
         </p>
       </div>
@@ -146,30 +154,72 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
   };
 
   return (
-    <div className="glass-panel fade-in" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+    <div style={{
+      backgroundColor: '#ffffff',
+      borderRadius: '12px',
+      border: '1px solid #e2e8f0',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+      maxHeight: 'calc(100vh - 165px)',
+      overflow: 'hidden'
+    }} className="fade-in">
       
       {/* Top Banner: Spam Status & Threat Category Badge */}
       <div style={{
         padding: '16px 20px',
-        borderBottom: '1px solid var(--border-subtle)',
-        background: isSpam ? 'rgba(239, 68, 68, 0.08)' : 'rgba(16, 185, 129, 0.06)'
+        borderBottom: '1px solid #e2e8f0',
+        backgroundColor: isSpam ? '#fff5f5' : '#f0fdf4'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap', marginBottom: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             {/* SPAM CLASSIFICATION BADGE */}
-            <span className={`badge ${isSpam ? 'badge-danger' : 'badge-safe'}`} style={{ fontSize: '0.85rem', padding: '5px 12px', fontWeight: '700' }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '0.85rem',
+              padding: '5px 12px',
+              fontWeight: '700',
+              borderRadius: '20px',
+              backgroundColor: isSpam ? '#fee2e2' : '#dcfce7',
+              color: isSpam ? '#b91c1c' : '#15803d',
+              border: isSpam ? '1px solid #fecaca' : '1px solid #bbf7d0'
+            }}>
               {isSpam ? <ShieldAlert size={16} /> : <ShieldCheck size={16} />}
-              {isSpam ? `SPAM DETECTED: ${security.category || 'Spam'}` : 'CLEAN & SAFE (NOT SPAM)'}
+              {isSpam ? `SPAM DETECTED: ${security.category || 'Threat'}` : 'VERIFIED SAFE (NOT SPAM)'}
             </span>
 
             {/* Risk Score */}
-            <span className="badge" style={{ background: 'var(--bg-secondary)', color: riskScore >= 50 ? '#ef4444' : '#10b981', border: '1px solid var(--border-subtle)', fontWeight: '700' }}>
-              Threat Risk: {riskScore}%
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              fontSize: '0.8rem',
+              padding: '4px 10px',
+              borderRadius: '16px',
+              fontWeight: '700',
+              backgroundColor: '#ffffff',
+              color: riskScore >= 50 ? '#dc2626' : '#16a34a',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+            }}>
+              Risk Score: {riskScore}%
             </span>
 
             {/* Language Tag */}
-            <span className="badge" style={{ background: 'rgba(6, 182, 212, 0.12)', color: '#06b6d4', border: '1px solid rgba(6, 182, 212, 0.3)' }}>
-              <Globe size={12} /> Detected: {language.name || 'English'}
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              fontSize: '0.8rem',
+              padding: '4px 10px',
+              borderRadius: '16px',
+              backgroundColor: '#e0f2fe',
+              color: '#0284c7',
+              border: '1px solid #bae6fd'
+            }}>
+              <Globe size={13} /> {language.name || 'English'}
             </span>
           </div>
 
@@ -179,33 +229,33 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
             style={{ fontSize: '0.75rem', padding: '5px 10px' }}
             title="Switch classification if incorrect"
           >
-            {isSpam ? 'Mark as Not Spam (Safe)' : 'Mark as Spam'}
+            {isSpam ? 'Mark as Safe' : 'Mark as Spam'}
           </button>
         </div>
 
         {/* Email Subject */}
-        <h2 style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '8px', lineHeight: '1.3' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#1f2937', marginBottom: '8px', lineHeight: '1.3' }}>
           {email.subject}
         </h2>
 
         {/* Sender & Date */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', fontSize: '0.825rem', color: '#4b5563' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <User size={14} color="var(--text-muted)" />
-            <strong>From:</strong> {email.sender}
+            <User size={14} color="#6b7280" />
+            <strong>From:</strong> <span>{email.sender}</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Clock size={14} color="var(--text-muted)" />
-            {new Date(email.date).toLocaleString()}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#6b7280' }}>
+            <Clock size={14} />
+            {email.date ? new Date(email.date).toLocaleString() : 'Just now'}
           </div>
         </div>
       </div>
 
-      {/* BUILT-IN INSTANT TRANSLATOR BAR (Always easily accessible) */}
+      {/* BUILT-IN INSTANT TRANSLATOR BAR */}
       <div style={{
         padding: '10px 20px',
-        background: 'rgba(99, 102, 241, 0.08)',
-        borderBottom: '1px solid var(--border-subtle)',
+        backgroundColor: '#f8fafc',
+        borderBottom: '1px solid #e2e8f0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -213,9 +263,9 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
         gap: '10px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Languages size={17} color="var(--primary)" />
-          <span style={{ fontSize: '0.825rem', fontWeight: '700', color: 'var(--text-primary)' }}>
-            Built-in Translator:
+          <Languages size={16} color="#1a73e8" />
+          <span style={{ fontSize: '0.825rem', fontWeight: '700', color: '#1f2937' }}>
+            Translate:
           </span>
           <select
             value={targetLang}
@@ -224,7 +274,7 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
               handleTranslateClick(e.target.value);
             }}
             className="input-field"
-            style={{ width: '170px', padding: '5px 10px', fontSize: '0.8rem', height: '32px' }}
+            style={{ width: '180px', padding: '4px 8px', fontSize: '0.8rem', height: '32px' }}
           >
             {ALL_LANGUAGES.map(l => (
               <option key={l.code} value={l.code}>
@@ -260,43 +310,46 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        background: 'var(--bg-secondary)',
-        borderBottom: '1px solid var(--border-subtle)',
-        padding: '3px 16px',
+        backgroundColor: '#f8fafc',
+        borderBottom: '1px solid #e2e8f0',
+        padding: '0 16px',
         overflowX: 'auto',
         gap: '4px'
       }}>
         {[
-          { id: 'reader', label: '📖 Email Content' },
-          { id: 'security', label: '🛡️ Threat Audit', badge: isSpam ? 'Flagged' : 'Safe' },
-          { id: 'summary', label: '📝 AI Summary', badge: summary.key_points?.length ? `${summary.key_points.length} pts` : null },
-          { id: 'replies', label: '💬 Smart Replies' },
-          { id: 'feedback', label: '✍️ Feedback' }
+          { id: 'reader', label: '?? Email Content' },
+          { id: 'security', label: '??? Threat Audit', badge: isSpam ? 'Flagged' : 'Safe' },
+          { id: 'summary', label: '? AI Summary', badge: summary.key_points?.length ? `${summary.key_points.length} pts` : null },
+          { id: 'replies', label: '?? Smart Replies' },
+          { id: 'feedback', label: '? Feedback' }
         ].map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className="btn btn-sm"
             style={{
-              background: activeTab === tab.id ? 'var(--bg-card)' : 'transparent',
-              color: activeTab === tab.id ? 'var(--primary)' : 'var(--text-secondary)',
-              borderBottom: activeTab === tab.id ? '2px solid var(--primary)' : '2px solid transparent',
-              borderRadius: '6px 6px 0 0',
+              padding: '10px 14px',
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: activeTab === tab.id ? '#1a73e8' : '#6b7280',
+              borderBottom: activeTab === tab.id ? '2px solid #1a73e8' : '2px solid transparent',
               fontWeight: activeTab === tab.id ? '700' : '500',
-              padding: '7px 12px',
               fontSize: '0.8rem',
-              whiteSpace: 'nowrap'
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
             }}
           >
             {tab.label}
             {tab.badge && (
               <span style={{
                 fontSize: '0.65rem',
-                padding: '1px 5px',
-                borderRadius: '4px',
-                background: 'rgba(99, 102, 241, 0.15)',
-                color: 'var(--primary)',
-                marginLeft: '4px'
+                padding: '1px 6px',
+                borderRadius: '10px',
+                backgroundColor: tab.badge === 'Flagged' ? '#fee2e2' : '#e0e7ff',
+                color: tab.badge === 'Flagged' ? '#dc2626' : '#4338ca',
+                fontWeight: '700'
               }}>
                 {tab.badge}
               </span>
@@ -312,24 +365,23 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
         {activeTab === 'reader' && (
           <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
-            {/* If translation active */}
             {isShowingTranslation && translatedResult && (
               <div style={{
-                background: 'rgba(99, 102, 241, 0.08)',
-                border: '1px solid rgba(99, 102, 241, 0.25)',
-                borderRadius: '10px',
-                padding: '12px 16px',
+                backgroundColor: '#eff6ff',
+                border: '1px solid #bfdbfe',
+                borderRadius: '8px',
+                padding: '10px 14px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center'
               }}>
-                <span style={{ fontSize: '0.825rem', fontWeight: '700', color: '#818cf8' }}>
-                  🌐 Viewing translation in {ALL_LANGUAGES.find(l => l.code === targetLang)?.name}
+                <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#1e40af' }}>
+                  ?? Viewing translation in {ALL_LANGUAGES.find(l => l.code === targetLang)?.name}
                 </span>
                 <button
                   onClick={() => setIsShowingTranslation(false)}
                   className="btn btn-sm btn-secondary"
-                  style={{ fontSize: '0.725rem' }}
+                  style={{ fontSize: '0.725rem', padding: '3px 8px' }}
                 >
                   Switch Back to Original ({language.name || 'English'})
                 </button>
@@ -338,15 +390,15 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
 
             {/* Email Text Body */}
             <div style={{
-              background: 'var(--bg-secondary)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '12px',
+              backgroundColor: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              borderRadius: '10px',
               padding: '18px'
             }}>
               <pre style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.9rem',
-                color: 'var(--text-primary)',
+                color: '#1f2937',
                 whiteSpace: 'pre-wrap',
                 wordBreak: 'break-word',
                 lineHeight: '1.65'
@@ -356,26 +408,26 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
             </div>
 
             {/* Quick Actions Footer inside Reader */}
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <button
                 onClick={() => setActiveTab('summary')}
                 className="btn btn-sm btn-secondary"
               >
-                <Sparkles size={14} color="var(--primary)" />
+                <Sparkles size={14} color="#1a73e8" />
                 View AI Summary & Action Items
               </button>
               <button
                 onClick={() => setActiveTab('replies')}
                 className="btn btn-sm btn-secondary"
               >
-                <MessageSquare size={14} color="#06b6d4" />
+                <MessageSquare size={14} color="#0284c7" />
                 Generate Smart Reply
               </button>
               <button
                 onClick={() => setActiveTab('security')}
                 className="btn btn-sm btn-secondary"
               >
-                <ShieldAlert size={14} color={isSpam ? '#ef4444' : '#10b981'} />
+                <ShieldAlert size={14} color={isSpam ? '#dc2626' : '#16a34a'} />
                 Inspect Threat Details
               </button>
             </div>
@@ -383,49 +435,50 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
           </div>
         )}
 
-        {/* TAB: 🛡️ SECURITY AUDIT */}
+        {/* TAB: SECURITY AUDIT */}
         {activeTab === 'security' && (
           <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
+            {/* Risk Meter */}
             <div style={{
-              background: 'var(--bg-secondary)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '12px',
+              backgroundColor: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              borderRadius: '10px',
               padding: '16px'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-secondary)' }}>
-                  Classification & Risk Meter
+                <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#4b5563' }}>
+                  Risk Score & Classification
                 </span>
-                <span style={{ fontSize: '0.9rem', fontWeight: '800', color: riskScore >= 50 ? '#ef4444' : '#10b981' }}>
+                <span style={{ fontSize: '0.9rem', fontWeight: '800', color: riskScore >= 50 ? '#dc2626' : '#16a34a' }}>
                   {security.category || (isSpam ? 'Spam' : 'Clean')} ({riskScore}/100)
                 </span>
               </div>
-              <div style={{ width: '100%', height: '8px', background: 'rgba(0,0,0,0.3)', borderRadius: '4px', overflow: 'hidden' }}>
+              <div style={{ width: '100%', height: '8px', backgroundColor: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
                 <div style={{
                   width: `${riskScore}%`,
                   height: '100%',
-                  background: riskScore >= 70 ? '#ef4444' : riskScore >= 40 ? '#f59e0b' : '#10b981',
+                  backgroundColor: riskScore >= 70 ? '#dc2626' : riskScore >= 40 ? '#d97706' : '#16a34a',
                   transition: 'width 0.5s ease'
                 }} />
               </div>
             </div>
 
-            {/* Threats Found */}
+            {/* Flagged Threat Factors */}
             {security.threats_found && security.threats_found.length > 0 && (
               <div style={{
-                background: 'rgba(239, 68, 68, 0.08)',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
-                borderRadius: '12px',
+                backgroundColor: '#fff5f5',
+                border: '1px solid #fed7d7',
+                borderRadius: '10px',
                 padding: '16px'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#ef4444', fontWeight: '700', fontSize: '0.85rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#c53030', fontWeight: '700', fontSize: '0.85rem' }}>
                   <AlertTriangle size={16} />
                   Flagged Threat Factors ({security.threats_found.length})
                 </div>
                 <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.825rem' }}>
                   {security.threats_found.map((threat, idx) => (
-                    <li key={idx} style={{ color: '#fca5a5' }}>{threat}</li>
+                    <li key={idx} style={{ color: '#9b2c2c' }}>{threat}</li>
                   ))}
                 </ul>
               </div>
@@ -434,12 +487,12 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
             {/* URLs Inspector */}
             {security.extracted_urls && security.extracted_urls.length > 0 && (
               <div style={{
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '12px',
+                backgroundColor: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                borderRadius: '10px',
                 padding: '16px'
               }}>
-                <div style={{ fontSize: '0.825rem', fontWeight: '700', marginBottom: '10px', color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: '0.825rem', fontWeight: '700', marginBottom: '10px', color: '#4b5563' }}>
                   Scanned Links ({security.extracted_urls.length})
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -447,18 +500,19 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
                     const isSuspicious = security.suspicious_urls?.includes(url);
                     return (
                       <div key={i} style={{
-                        padding: '6px 10px',
+                        padding: '8px 12px',
                         borderRadius: '6px',
-                        background: isSuspicious ? 'rgba(239, 68, 68, 0.12)' : 'rgba(255, 255, 255, 0.03)',
-                        border: isSuspicious ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid var(--border-subtle)',
+                        backgroundColor: isSuspicious ? '#fff5f5' : '#ffffff',
+                        border: isSuspicious ? '1px solid #fed7d7' : '1px solid #e2e8f0',
                         fontSize: '0.775rem',
                         fontFamily: 'var(--font-mono)',
-                        color: isSuspicious ? '#f87171' : 'var(--text-primary)',
+                        color: isSuspicious ? '#c53030' : '#1f2937',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap'
                       }}>
-                        {isSuspicious ? '⚠️ [FLAGGED] ' : '🛡️ [SAFE] '} {url}
+                        <strong>{isSuspicious ? '?? [MALICIOUS / SUSPICIOUS] ' : '? [VERIFIED SAFE] '}</strong>
+                        {url}
                       </div>
                     );
                   })}
@@ -469,34 +523,35 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
           </div>
         )}
 
-        {/* TAB: 📝 SUMMARIZATION */}
+        {/* TAB: SUMMARIZATION */}
         {activeTab === 'summary' && (
           <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
+            {/* Executive Summary */}
             <div style={{
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.08) 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.3)',
-              borderRadius: '12px',
-              padding: '16px 18px'
+              backgroundColor: '#eff6ff',
+              border: '1px solid #bfdbfe',
+              borderRadius: '10px',
+              padding: '16px'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', color: '#818cf8', fontWeight: '700', fontSize: '0.875rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', color: '#1a73e8', fontWeight: '700', fontSize: '0.875rem' }}>
                 <Sparkles size={16} />
-                Short Executive Summary
+                Short Executive Summary (TL;DR)
               </div>
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-primary)', lineHeight: '1.5' }}>
+              <p style={{ fontSize: '0.875rem', color: '#1e3a8a', lineHeight: '1.5', margin: 0 }}>
                 {summary.tldr || 'No summary available.'}
               </p>
             </div>
 
             {/* Key Points */}
             {summary.key_points && summary.key_points.length > 0 && (
-              <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '16px' }}>
-                <div style={{ fontSize: '0.85rem', fontWeight: '700', marginBottom: '10px', color: 'var(--text-secondary)' }}>
-                  📌 Key Points
+              <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
+                <div style={{ fontSize: '0.85rem', fontWeight: '700', marginBottom: '10px', color: '#374151' }}>
+                  ?? Key Points
                 </div>
                 <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.85rem' }}>
                   {summary.key_points.map((pt, idx) => (
-                    <li key={idx} style={{ color: 'var(--text-primary)' }}>{pt}</li>
+                    <li key={idx} style={{ color: '#4b5563' }}>{pt}</li>
                   ))}
                 </ul>
               </div>
@@ -504,14 +559,21 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
 
             {/* Dates & Deadlines */}
             {summary.dates_deadlines && summary.dates_deadlines.length > 0 && (
-              <div style={{ background: 'rgba(6, 182, 212, 0.06)', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '12px', padding: '14px 16px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#06b6d4', fontWeight: '700', fontSize: '0.85rem' }}>
-                  <Calendar size={16} /> Important Dates / Deadlines
+              <div style={{ backgroundColor: '#f0fdfa', border: '1px solid #99f6e4', borderRadius: '10px', padding: '14px 16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#0f766e', fontWeight: '700', fontSize: '0.85rem' }}>
+                  <Calendar size={16} /> Extracted Dates & Deadlines
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {summary.dates_deadlines.map((dt, idx) => (
-                    <span key={idx} className="badge" style={{ background: 'rgba(6, 182, 212, 0.15)', color: '#22d3ee', padding: '5px 10px', fontSize: '0.775rem' }}>
-                      📅 {dt}
+                    <span key={idx} style={{
+                      backgroundColor: '#ccfbf1',
+                      color: '#115e59',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      fontSize: '0.775rem',
+                      fontWeight: '600'
+                    }}>
+                      ??? {dt}
                     </span>
                   ))}
                 </div>
@@ -520,20 +582,20 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
 
             {/* Action Items */}
             {summary.action_items && summary.action_items.length > 0 && (
-              <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '16px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', color: 'var(--text-secondary)', fontWeight: '700', fontSize: '0.85rem' }}>
-                  <CheckSquare size={16} color="var(--primary)" /> Action Items Checklist
+              <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', color: '#374151', fontWeight: '700', fontSize: '0.85rem' }}>
+                  <CheckSquare size={16} color="#1a73e8" /> Action Items Checklist
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {summary.action_items.map((action, idx) => (
                     <label key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.825rem', cursor: 'pointer' }}>
                       <input
                         type="checkbox"
                         checked={!!checkedActions[idx]}
                         onChange={() => setCheckedActions(prev => ({ ...prev, [idx]: !prev[idx] }))}
-                        style={{ marginTop: '3px', accentColor: 'var(--primary)' }}
+                        style={{ marginTop: '3px', accentColor: '#1a73e8' }}
                       />
-                      <span style={{ textDecoration: checkedActions[idx] ? 'line-through' : 'none', color: checkedActions[idx] ? 'var(--text-muted)' : 'var(--text-primary)' }}>
+                      <span style={{ textDecoration: checkedActions[idx] ? 'line-through' : 'none', color: checkedActions[idx] ? '#9ca3af' : '#1f2937' }}>
                         {action}
                       </span>
                     </label>
@@ -545,20 +607,20 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
           </div>
         )}
 
-        {/* TAB: 💬 SMART REPLIES */}
+        {/* TAB: SMART REPLIES */}
         {activeTab === 'replies' && (
           <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             
             <div>
-              <label style={{ fontSize: '0.785rem', fontWeight: '700', color: 'var(--text-secondary)', display: 'block', marginBottom: '6px' }}>
-                Select Reply Tone
+              <label style={{ fontSize: '0.8rem', fontWeight: '700', color: '#4b5563', display: 'block', marginBottom: '6px' }}>
+                Choose Tone of Reply
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
                 {[
-                  { id: 'professional', label: '👔 Professional' },
-                  { id: 'friendly', label: '🤝 Friendly' },
-                  { id: 'formal', label: '🏛️ Formal' },
-                  { id: 'direct_decline', label: '🚫 Decline' }
+                  { id: 'professional', label: '?? Professional' },
+                  { id: 'friendly', label: '?? Friendly' },
+                  { id: 'formal', label: '?? Formal' },
+                  { id: 'direct_decline', label: '? Decline' }
                 ].map(t => (
                   <button
                     key={t.id}
@@ -566,13 +628,15 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
                       setSelectedTone(t.id);
                       setReplyText(smart_replies[t.id] || '');
                     }}
-                    className="btn btn-sm"
                     style={{
-                      background: selectedTone === t.id ? 'var(--primary)' : 'var(--bg-secondary)',
-                      color: selectedTone === t.id ? '#ffffff' : 'var(--text-secondary)',
-                      border: selectedTone === t.id ? '1px solid var(--primary)' : '1px solid var(--border-subtle)',
-                      padding: '7px 8px',
-                      fontSize: '0.75rem'
+                      padding: '8px 4px',
+                      borderRadius: '8px',
+                      border: selectedTone === t.id ? '2px solid #1a73e8' : '1px solid #e2e8f0',
+                      backgroundColor: selectedTone === t.id ? '#eff6ff' : '#ffffff',
+                      color: selectedTone === t.id ? '#1a73e8' : '#4b5563',
+                      fontWeight: selectedTone === t.id ? '700' : '500',
+                      fontSize: '0.775rem',
+                      cursor: 'pointer'
                     }}
                   >
                     {t.label}
@@ -581,14 +645,14 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
               </div>
             </div>
 
-            <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '14px' }}>
+            <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--text-secondary)' }}>
-                  Generated Reply Draft
+                <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#4b5563' }}>
+                  AI Generated Reply
                 </span>
                 <button onClick={handleCopyReply} className="btn btn-sm btn-primary" style={{ padding: '4px 10px', fontSize: '0.75rem' }}>
                   {copied ? <Check size={13} /> : <Copy size={13} />}
-                  {copied ? 'Copied!' : 'Copy Reply'}
+                  {copied ? 'Copied to Clipboard!' : 'Copy Reply'}
                 </button>
               </div>
 
@@ -597,53 +661,78 @@ export default function EmailInspector({ email, onTranslate, onFeedback, onQuick
                 onChange={(e) => setReplyText(e.target.value)}
                 rows={8}
                 className="input-field"
-                style={{ fontSize: '0.85rem', lineHeight: '1.5' }}
+                style={{ fontSize: '0.85rem', lineHeight: '1.5', backgroundColor: '#ffffff' }}
               />
             </div>
 
           </div>
         )}
 
-        {/* TAB: ✍️ FEEDBACK */}
+        {/* TAB: FEEDBACK & TUNING */}
         {activeTab === 'feedback' && (
           <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            <form onSubmit={handleFeedbackSubmit} style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '16px' }}>
+            <form onSubmit={handleFeedbackSubmit} style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
               <div style={{ marginBottom: '12px' }}>
-                <label style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                  Correct Category
+                <label style={{ fontSize: '0.8rem', fontWeight: '600', color: '#374151', display: 'block', marginBottom: '4px' }}>
+                  Correct Classification / Category
                 </label>
                 <select
                   value={feedbackCategory}
                   onChange={(e) => setFeedbackCategory(e.target.value)}
                   className="input-field"
-                  style={{ fontSize: '0.825rem' }}
+                  style={{ backgroundColor: '#ffffff' }}
                 >
-                  {ALL_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  {ALL_CATEGORIES.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
                 </select>
               </div>
 
               <div style={{ marginBottom: '12px' }}>
-                <label style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
+                <label style={{ fontSize: '0.8rem', fontWeight: '600', color: '#374151', display: 'block', marginBottom: '4px' }}>
                   Rating (1-5 Stars)
                 </label>
                 <div style={{ display: 'flex', gap: '6px' }}>
-                  {[1, 2, 3, 4, 5].map(s => (
-                    <button key={s} type="button" onClick={() => setStarRating(s)} style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}>
-                      <Star size={20} fill={s <= starRating ? '#fbbf24' : 'transparent'} color={s <= starRating ? '#fbbf24' : 'var(--text-muted)'} />
+                  {[1, 2, 3, 4, 5].map(star => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setStarRating(star)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: star <= starRating ? '#f59e0b' : '#d1d5db',
+                        padding: 0
+                      }}
+                    >
+                      <Star size={20} fill={star <= starRating ? '#f59e0b' : 'none'} />
                     </button>
                   ))}
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '9px', fontSize: '0.85rem' }}>
-                <Send size={14} /> Submit Feedback
-              </button>
+              <div style={{ marginBottom: '14px' }}>
+                <label style={{ fontSize: '0.8rem', fontWeight: '600', color: '#374151', display: 'block', marginBottom: '4px' }}>
+                  Notes / Explanation for AI Retraining
+                </label>
+                <textarea
+                  value={feedbackNotes}
+                  onChange={(e) => setFeedbackNotes(e.target.value)}
+                  placeholder="Explain why this email was misclassified or what indicator was missed..."
+                  rows={3}
+                  className="input-field"
+                  style={{ backgroundColor: '#ffffff', fontSize: '0.825rem' }}
+                />
+              </div>
 
-              {feedbackSubmitted && (
-                <div className="badge badge-safe" style={{ width: '100%', marginTop: '10px', padding: '8px', justifyContent: 'center' }}>
-                  <Check size={14} /> Feedback saved!
-                </div>
-              )}
+              <button
+                type="submit"
+                className="btn btn-primary btn-sm"
+                style={{ width: '100%', padding: '9px' }}
+              >
+                {feedbackSubmitted ? '? Feedback Saved to Knowledge Store!' : 'Submit Feedback for AI Training'}
+              </button>
             </form>
           </div>
         )}

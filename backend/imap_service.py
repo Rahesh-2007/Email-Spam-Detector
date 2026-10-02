@@ -96,13 +96,18 @@ def fetch_imap_emails(email_address, password, server_host=None, port=993, limit
     host = detect_imap_server(email_address, server_host)
     emails_list = []
 
+    # Clean password (remove spaces if user copied a 16-char Google App Password)
+    clean_password = password.strip()
+    if "gmail" in host.lower():
+        clean_password = clean_password.replace(" ", "")
+
     try:
         # Connect with SSL
         mail = imaplib.IMAP4_SSL(host, port=int(port), timeout=15)
-        mail.login(email_address, password)
+        mail.login(email_address.strip(), clean_password)
     except imaplib.IMAP4.error as e:
         error_msg = str(e)
-        if "AUTHENTICATIONFAILED" in error_msg or "Invalid credentials" in error_msg:
+        if "AUTHENTICATIONFAILED" in error_msg or "Invalid credentials" in error_msg or "Application-specific password required" in error_msg:
             if "gmail" in host:
                 raise ValueError(
                     "Authentication failed! If you are using Gmail, Google requires an 'App Password' instead of your regular password. "

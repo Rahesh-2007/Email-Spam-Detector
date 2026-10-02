@@ -1,29 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import LoginPage from './components/LoginPage';
 import DashboardView from './components/DashboardView';
 import EmailInboxView from './components/EmailInboxView';
 import ManualAnalyzerView from './components/ManualAnalyzerView';
 import ImapConnectModal from './components/ImapConnectModal';
+import ComposeModal from './components/ComposeModal';
 
 const API_BASE = 'http://127.0.0.1:5000/api';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('inbox');
+  // Authentication State
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('intelliguard_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  // Navigation & View State
+  const [activeTab, setActiveTab] = useState('inbox'); // 'inbox' | 'dashboard' | 'manual'
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  // Mailbox Data State
   const [account, setAccount] = useState('demo-sandbox@security.ai');
   const [isDemo, setIsDemo] = useState(true);
   const [emails, setEmails] = useState([]);
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem('antigravity_theme') || 'dark');
-  const [toastMessage, setToastMessage] = useState('');
 
-  // Synchronize theme attribute
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('antigravity_theme', theme);
-  }, [theme]);
+  // Modals
+  const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
+  const [isComposeOpen, setIsComposeOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -55,8 +70,45 @@ export default function App() {
   };
 
   useEffect(() => {
-    loadDemoData();
-  }, []);
+    if (currentUser) {
+      loadDemoData();
+    }
+  }, [currentUser]);
+
+  // Login Handlers
+  const handleLoginDemo = async () => {
+    const demoUser = {
+      email: 'demo-sandbox@security.ai',
+      name: 'Security Analyst',
+      isDemo: true
+    };
+    setCurrentUser(demoUser);
+    localStorage.setItem('intelliguard_user', JSON.stringify(demoUser));
+    await loadDemoData();
+  };
+
+  const handleLoginAccount = async (userData) => {
+    setCurrentUser(userData);
+    localStorage.setItem('intelliguard_user', JSON.stringify(userData));
+    await loadDemoData();
+  };
+
+  const handleLoginImap = async (credentials) => {
+    await handleConnectImap(credentials);
+    const imapUser = {
+      email: credentials.email,
+      name: credentials.email.split('@')[0],
+      isDemo: false
+    };
+    setCurrentUser(imapUser);
+    localStorage.setItem('intelliguard_user', JSON.stringify(imapUser));
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem('intelliguard_user');
+    showToast('Signed out successfully');
+  };
 
   // Connect to IMAP
   const handleConnectImap = async (credentials) => {
@@ -99,6 +151,14 @@ export default function App() {
       return data.email;
     }
     throw new Error('Analysis failed');
+  };
+
+  // Add composed email to active inbox
+  const handleAddToInbox = (scannedEmail) => {
+    setEmails(prev => [scannedEmail, ...prev]);
+    setSelectedEmail(scannedEmail);
+    setActiveTab('inbox');
+    showToast('Scanned email added to Inbox');
   };
 
   // Translate text
@@ -150,76 +210,117 @@ export default function App() {
     showToast(`Marked as ${isSpam ? 'Spam' : 'Safe'}`);
   };
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+  // If not logged in, render the clean white LoginPage
+  if (!currentUser) {
+    return (
+      <LoginPage
+        onLoginDemo={handleLoginDemo}
+        onLoginAccount={handleLoginAccount}
+        onLoginImap={handleLoginImap}
+        loading={loading}
+      />
+    );
+  }
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f6f8fc', display: 'flex', flexDirection: 'column' }}>
       
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="glass-panel fade-in" style={{
+        <div style={{
           position: 'fixed',
           bottom: '24px',
           right: '24px',
           padding: '12px 20px',
-          background: 'rgba(99, 102, 241, 0.9)',
+          backgroundColor: '#1f2937',
           color: '#ffffff',
-          borderRadius: '10px',
-          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4)',
+          borderRadius: '8px',
+          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.25)',
           zIndex: 2000,
           fontSize: '0.875rem',
           fontWeight: '600'
-        }}>
+        }} className="fade-in">
           {toastMessage}
         </div>
       )}
 
-      {/* Header */}
+      {/* Gmail-Style Top Header */}
       <Header
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
         account={account}
         isDemo={isDemo}
         onOpenConnectModal={() => setIsConnectModalOpen(true)}
         onRefresh={loadDemoData}
         loading={loading}
-        theme={theme}
-        toggleTheme={toggleTheme}
+        currentUser={currentUser}
+        onLogout={handleLogout}
+        onToggleSidebar={() => setIsSidebarCollapsed(prev => !prev)}
         onLoadDemo={loadDemoData}
       />
 
-      {/* Main View Router */}
-      <main style={{ flex: 1 }}>
-        {activeTab === 'dashboard' && (
-          <DashboardView
-            stats={stats}
-            emails={emails}
-            onSelectEmail={(email) => setSelectedEmail(email)}
-            onViewInbox={() => setActiveTab('inbox')}
-          />
-        )}
+      {/* Main Gmail Layout: Left Navigation + Content Area */}
+      <div style={{ display: 'flex', flex: 1 }}>
+        
+        {/* Left Side Navigation (Gmail Style) */}
+        <Sidebar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+          emails={emails}
+          stats={stats}
+          currentUser={currentUser}
+          onLogout={handleLogout}
+          onOpenCompose={() => setIsComposeOpen(true)}
+          isCollapsed={isSidebarCollapsed}
+        />
 
-        {activeTab === 'inbox' && (
-          <EmailInboxView
-            emails={emails}
-            selectedEmail={selectedEmail}
-            onSelectEmail={(email) => setSelectedEmail(email)}
-            onTranslate={handleTranslate}
-            onFeedback={handleFeedback}
-            onQuickStatusToggle={handleQuickStatusToggle}
-          />
-        )}
+        {/* Main Work Area */}
+        <main style={{ flex: 1, minWidth: 0, overflowX: 'hidden' }}>
+          {activeTab === 'inbox' && (
+            <EmailInboxView
+              emails={emails}
+              selectedEmail={selectedEmail}
+              onSelectEmail={(email) => setSelectedEmail(email)}
+              onTranslate={handleTranslate}
+              onFeedback={handleFeedback}
+              onQuickStatusToggle={handleQuickStatusToggle}
+              searchQuery={searchQuery}
+              categoryFilter={categoryFilter}
+              setCategoryFilter={setCategoryFilter}
+            />
+          )}
 
-        {activeTab === 'manual' && (
-          <ManualAnalyzerView
-            onAnalyzeSingle={handleAnalyzeSingle}
-            onTranslate={handleTranslate}
-            onFeedback={handleFeedback}
-          />
-        )}
-      </main>
+          {activeTab === 'dashboard' && (
+            <DashboardView
+              stats={stats}
+              emails={emails}
+              onSelectEmail={(email) => {
+                setSelectedEmail(email);
+                setActiveTab('inbox');
+              }}
+              onViewInbox={() => setActiveTab('inbox')}
+            />
+          )}
+
+          {activeTab === 'manual' && (
+            <ManualAnalyzerView
+              onAnalyzeSingle={handleAnalyzeSingle}
+              onTranslate={handleTranslate}
+              onFeedback={handleFeedback}
+            />
+          )}
+        </main>
+      </div>
+
+      {/* Compose / Scan Modal */}
+      <ComposeModal
+        isOpen={isComposeOpen}
+        onClose={() => setIsComposeOpen(false)}
+        onAnalyze={handleAnalyzeSingle}
+        onAddToInbox={handleAddToInbox}
+      />
 
       {/* IMAP Connect Modal */}
       <ImapConnectModal
@@ -229,18 +330,6 @@ export default function App() {
         onConnectDemo={loadDemoData}
         loading={loading}
       />
-
-      {/* Footer */}
-      <footer style={{
-        padding: '16px 24px',
-        textAlign: 'center',
-        fontSize: '0.75rem',
-        color: 'var(--text-muted)',
-        borderTop: '1px solid var(--border-subtle)',
-        marginTop: 'auto'
-      }}>
-        IntelliGuard AI • Email Security & Multi-Lingual Assistant • React + Flask Architecture
-      </footer>
 
     </div>
   );

@@ -4,7 +4,7 @@ import EmailInspector from './EmailInspector';
 
 const SAMPLE_TEMPLATES = [
   {
-    title: '🎣 Paypal Phishing Scam',
+    title: '🚨 PayPal Phishing Scam',
     sender: 'PayPal Security Alert <verify-account@paypa1-security-center.ru>',
     subject: 'URGENT: Unauthorized Transaction Detected - Confirm Password Within 24h',
     body: `Dear Customer,
@@ -24,65 +24,69 @@ Fraud Prevention Department`
   {
     title: '💼 Tamil Job Offer (தமிழ்)',
     sender: 'Sundararajan <sundar@chennai-techhire.in>',
-    subject: 'வேலை வாய்ப்பு: சீனியர் AI இன்ஜினியர் பதவிக்கான நேர்காணல் அழைப்பு',
-    body: `வணக்கம்,
+    subject: 'நேர்காணல் அழைப்பு: முன்னணி AI நிறுவனத்தில் Senior AI Engineer வேலை வாய்ப்பு',
+    body: `அன்புள்ள விண்ணப்பதாரரே,
 
-உங்கள் லிங்க்ட்இன் (LinkedIn) சுயவிவரத்தை நாங்கள் பார்த்தோம். நீங்கள் செய்துள்ள AI மற்றும் Machine Learning திட்டங்கள் மிகவும் சிறப்பாக உள்ளன.
+உங்கள் லிங்க்ட்இன் (LinkedIn) சுயவிவரத்தைப் பார்த்தோம். உங்கள் முந்தைய AI திட்டங்கள் மற்றும் Machine Learning திறன்கள் மிகவும் ஈர்க்கக்கூடியதாக உள்ளன.
 
-சென்னையில் உள்ள எங்களது முன்னணி மென்பொருள் நிறுவனத்தில் 'Senior AI Engineer' பணிக்கான காலியிடம் உள்ளது. 
+எங்கள் வாடிக்கையாளர் முன்னணி சர்வதேச AI நிறுவனத்தில் 'Senior AI Engineer' பணிக்காக உங்கள் விண்ணப்பம் பரிசீலிக்கப்பட்டுள்ளது.
 
 நேர்காணல் விவரங்கள்:
-தேதி: அக்டோபர் 10, 2026 (சனிக்கிழமை)
+தேதி: அக்டோபர் 10, 2026 (வியாழக்கிழமை)
 நேரம்: காலை 11:00 AM IST
-முறை: Google Meet வீடியோ அழைப்பு
+இடம்: Google Meet வழியாக நடைபெறும்
 
 சம்பள தொகுப்பு: ஆண்டுக்கு ₹24,00,000 - ₹32,00,000 + போனஸ்.
 
-இந்த நேர்காணலில் கலந்து கொள்ள உங்கள் ஒப்புதலையும், தற்போதைய சுயவிவரக் குறிப்பையும் (Updated Resume) பதில் மின்னஞ்சல் மூலம் அனுப்பவும்.
+இந்த நேர்காணலை உறுதி செய்ய உங்கள் ஒப்புதலையும், தற்போதைய சுயவிவரக் குறிப்பையும் (Updated Resume) இந்த மின்னஞ்சலுக்குப் பதில் அனுப்பி உறுதிப்படுத்தவும்.
 
 நன்றி,
 சுந்தரராஜன்
-தலைமை ஆட்சேர்ப்பு அதிகாரி`
+தலைமை ஆட்சேர்ப்பு ஆலோசகர்`
   },
   {
-    title: '💰 Hindi Bank KYC Scam (हिन्दी)',
+    title: '🏦 Hindi Bank KYC Scam (हिन्दी)',
     sender: 'HDFC Banking Alerts <alert@hdfc-kyc-verify-portal.in>',
-    subject: 'प्रिय ग्राहक, आपका बैंक खाता 24 घंटे में ब्लॉक हो जाएगा - तुरंत KYC अपडेट करें',
-    body: `प्रिय बैंक ग्राहक,
+    subject: 'अति आवश्यक: आपका बैंक खाता 24 घंटे में ब्लॉक हो जाएगा - तुरंत KYC पूरा करें',
+    body: `प्रिय ग्राहक,
 
-भारतीय रिज़र्व बैंक (RBI) के नए दिशानिर्देशों के अनुसार, आपका बैंक खाता KYC पूरा न होने के कारण 24 घंटे के भीतर निलंबित कर दिया जाएगा।
+आरबीआई (RBI) के नए दिशा-निर्देशों के अनुसार आपके बैंक खाते का तत्काल बायोमेट्रिक ई-केवाईसी (E-KYC) सत्यापन आवश्यक है।
 
-अपने खाते को सक्रिय रखने के लिए तुरंत नीचे दिए गए लिंक पर क्लिक करें और अपना पैन कार्ड, आधार कार्ड और नेट बैंकिंग पासवर्ड दर्ज करके सत्यापन पूरा करें:
+यदि आप आज शाम 5 बजे से पहले अपना पैन कार्ड और आधार कार्ड सत्यापित नहीं करते हैं, तो आपकी नेट बैंकिंग और यूपीआई (UPI) सेवाएं 24 घंटे में स्थायी रूप से बंद कर दी जाएंगी।
 
-http://hdfc-kyc-update-portal-fake.in/update
+तुरंत अपना ई-केवाईसी पूरा करने के लिए नीचे दिए गए बैंक लिंक पर क्लिक करें:
+http://update-kyc-netbanking.bank-verify.xyz/login
 
-यदि आप ऐसा नहीं करते हैं, तो आपका एटीएम कार्ड और ऑनलाइन लेनदेन तुरंत रोक दिया जाएगा।
+लिंक पर जाकर अपना 16-अंकों का एटीएम कार्ड नंबर, पिन (PIN) और नेट बैंकिंग पासवर्ड दर्ज करके फॉर्म सबमिट करें।
 
-धन्यवाद,
-सुरक्षा विभाग, एचडीएफसी बैंक`
+सुरक्षा विभाग,
+एचडीएफसी बैंक इंडिया`
   },
   {
-    title: '📅 Engineering Architecture Meeting',
-    sender: 'Alex Rivera <arivera@acmetech.io>',
-    subject: 'Project Apollo: Q4 Architecture Review & Roadmap Alignment',
+    title: '✅ Clean Corporate Agenda (Safe)',
+    sender: 'Sarah Jenkins <sarah.jenkins@acmecorp.com>',
+    subject: 'Sprint 24 Planning Meeting & Quarterly Product Roadmap - Thursday 2:00 PM',
     body: `Hi Team,
 
-I'd like to schedule our Q4 Architecture Review for Project Apollo on Wednesday, October 7, 2026 at 3:00 PM EST.
+Hope you are having a productive week.
 
-Agenda:
-1. GraphQL migration benchmark latency review
-2. High-availability multi-region Redis cluster design
-3. Security posture & SOC2 compliance checklist
+Please find below the agenda for our upcoming Sprint 24 Planning and Q4 Roadmap review scheduled for this Thursday at 2:00 PM EST via Zoom.
+
+Meeting Agenda:
+1. Review completed deliverables from Sprint 23 (15 mins)
+2. Sprint 24 backlog grooming and story point allocation (25 mins)
+3. Infrastructure budget update and AWS cloud cost optimizations (10 mins)
+4. Open Q&A and blocker resolution (10 mins)
 
 Action Items:
-- Please review the architecture doc (v1.8) on Confluence before Tuesday EOD.
-- Submit benchmark metrics pull request by Monday afternoon.
+- Please update your Jira tickets before Wednesday 5:00 PM.
+- Product managers to finalize Sprint 24 acceptance criteria.
 
-Let me know if anyone has scheduling conflicts.
+Looking forward to a great planning session.
 
-Best,
-Alex Rivera
-Principal Architect`
+Best regards,
+Sarah Jenkins
+Director of Engineering, Acme Corp`
   }
 ];
 
@@ -93,24 +97,27 @@ export default function ManualAnalyzerView({ onAnalyzeSingle, onTranslate, onFee
   const [analyzing, setAnalyzing] = useState(false);
   const [analyzedEmail, setAnalyzedEmail] = useState(null);
 
-  const handleLoadSample = (sample) => {
-    setSender(sample.sender);
-    setSubject(sample.subject);
-    setBody(sample.body);
+  const handleLoadTemplate = (tpl) => {
+    setSender(tpl.sender);
+    setSubject(tpl.subject);
+    setBody(tpl.body);
     setAnalyzedEmail(null);
   };
 
-  const handleRunAnalysis = async (e) => {
+  const handleAnalyze = async (e) => {
     e.preventDefault();
-    if (!body.trim()) return;
+    if (!body.trim() && !subject.trim()) return;
+
     setAnalyzing(true);
     try {
-      const res = await onAnalyzeSingle({
-        sender: sender || 'Unknown <sender@domain.com>',
-        subject: subject || 'No Subject',
-        body: body
-      });
-      setAnalyzedEmail(res);
+      const emailObj = {
+        sender: sender.trim() || 'anonymous@unknown.com',
+        subject: subject.trim(),
+        body: body.trim(),
+        date: new Date().toISOString()
+      };
+      const result = await onAnalyzeSingle(emailObj);
+      setAnalyzedEmail(result);
     } catch (err) {
       console.error(err);
     } finally {
@@ -118,117 +125,162 @@ export default function ManualAnalyzerView({ onAnalyzeSingle, onTranslate, onFee
     }
   };
 
-  return (
-    <div className="fade-in" style={{ padding: '0 20px 40px 20px' }}>
-      
-      {/* Header Info */}
-      <div className="glass-panel" style={{ padding: '20px 24px', marginBottom: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-          <Sparkles size={20} color="var(--primary)" />
-          <h2 style={{ fontSize: '1.25rem', fontWeight: '800' }}>
-            Ad-Hoc Manual Email Security Scanner & Assistant
-          </h2>
-        </div>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-          Paste any raw email message, phishing lure, or multilingual correspondence to inspect threat signatures, extract summaries, and generate instant replies.
-        </p>
+  const handleQuickStatusToggle = (emailId, isSpam) => {
+    if (analyzedEmail) {
+      setAnalyzedEmail(prev => ({
+        ...prev,
+        security: {
+          ...prev.security,
+          is_spam: isSpam,
+          category: isSpam ? (prev.security.category === 'Clean / Safe' ? 'Other Spam' : prev.security.category) : 'Clean / Safe'
+        }
+      }));
+    }
+  };
 
-        {/* Quick Sample Presets */}
-        <div style={{ marginTop: '14px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-            Quick Samples:
-          </span>
-          {SAMPLE_TEMPLATES.map((tpl, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => handleLoadSample(tpl)}
-              className="btn btn-sm btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '5px 10px' }}
-            >
-              {tpl.title}
-            </button>
-          ))}
+  return (
+    <div className="fade-in" style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      
+      {/* Intro Header */}
+      <div style={{
+        padding: '20px 24px',
+        backgroundColor: '#ffffff',
+        border: '1px solid #e2e8f0',
+        borderRadius: '12px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.04)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#1a73e8', fontWeight: '700', fontSize: '0.85rem', marginBottom: '4px' }}>
+          <Sparkles size={16} /> Manual Threat Analyzer & Testing Sandbox
         </div>
+        <h2 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#1f2937', marginBottom: '6px' }}>
+          Inspect Any Custom or Suspicious Email
+        </h2>
+        <p style={{ fontSize: '0.875rem', color: '#4b5563', margin: 0 }}>
+          Paste raw email headers, body text, or choose from realistic sample attacks (phishing links, multi-lingual job offers, fake banking KYC).
+        </p>
       </div>
 
-      {/* Grid: Input Form (Left) & Inspector (Right) */}
+      {/* Preset Buttons */}
+      <div style={{
+        padding: '14px 18px',
+        backgroundColor: '#ffffff',
+        border: '1px solid #e2e8f0',
+        borderRadius: '12px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        flexWrap: 'wrap'
+      }}>
+        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#374151' }}>
+          Preload Sample Threat:
+        </span>
+        {SAMPLE_TEMPLATES.map((tpl, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => handleLoadTemplate(tpl)}
+            className="btn btn-sm btn-secondary"
+            style={{ fontSize: '0.775rem' }}
+          >
+            {tpl.title}
+          </button>
+        ))}
+      </div>
+
+      {/* Two Column Layout: Input Form vs Live Analysis */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: analyzedEmail ? '1fr 1.2fr' : '1fr',
-        gap: '24px',
+        gridTemplateColumns: analyzedEmail ? '1fr 1fr' : '1fr',
+        gap: '20px',
         alignItems: 'start'
       }}>
         
-        {/* Form Container */}
-        <div className="glass-panel" style={{ padding: '24px' }}>
-          <form onSubmit={handleRunAnalysis}>
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-secondary)', display: 'block', marginBottom: '6px' }}>
-                Sender Email (From)
+        {/* Left Column: Form */}
+        <div style={{
+          backgroundColor: '#ffffff',
+          border: '1px solid #e2e8f0',
+          borderRadius: '12px',
+          padding: '24px',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.04)'
+        }}>
+          <form onSubmit={handleAnalyze} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#374151', marginBottom: '6px' }}>
+                Sender (Email or Name)
               </label>
               <input
                 type="text"
-                placeholder="e.g. Security Center <alert@paypal-login-update.ru>"
+                placeholder="e.g. PayPal Alert <service@paypa1.com>"
                 value={sender}
                 onChange={(e) => setSender(e.target.value)}
                 className="input-field"
               />
             </div>
 
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-secondary)', display: 'block', marginBottom: '6px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#374151', marginBottom: '6px' }}>
                 Email Subject
               </label>
               <input
                 type="text"
-                placeholder="e.g. URGENT: Your account has been suspended"
+                placeholder="e.g. URGENT: Action required on your account"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 className="input-field"
-              />
-            </div>
-
-            <div style={{ marginBottom: '18px' }}>
-              <label style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-secondary)', display: 'block', marginBottom: '6px' }}>
-                Email Body Text (or Raw Content)
-              </label>
-              <textarea
-                placeholder="Paste the full email text here..."
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-                rows={10}
-                className="input-field"
-                style={{ fontFamily: 'var(--font-sans)', fontSize: '0.875rem', lineHeight: '1.5' }}
                 required
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={analyzing || !body.trim()}
-              className="btn btn-primary"
-              style={{ width: '100%', padding: '12px', fontSize: '0.95rem' }}
-            >
-              <Shield size={18} />
-              {analyzing ? 'Scanning with AI Intelligence...' : 'Scan & Analyze Email'}
-            </button>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#374151', marginBottom: '6px' }}>
+                Email Content / Body
+              </label>
+              <textarea
+                placeholder="Paste email body text, suspicious URLs, or full message here..."
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                rows={10}
+                className="input-field"
+                style={{ resize: 'vertical' }}
+                required
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setSender('');
+                  setSubject('');
+                  setBody('');
+                  setAnalyzedEmail(null);
+                }}
+                className="btn btn-secondary btn-sm"
+              >
+                Clear Form
+              </button>
+
+              <button
+                type="submit"
+                disabled={analyzing}
+                className="btn btn-primary"
+                style={{ padding: '10px 20px' }}
+              >
+                <Sparkles size={16} />
+                {analyzing ? 'Scanning Content...' : 'Run Deep Security Scan'}
+              </button>
+            </div>
           </form>
         </div>
 
-        {/* Right Pane: Analysis Results */}
+        {/* Right Column: Result in EmailInspector */}
         {analyzedEmail && (
-          <div>
+          <div className="fade-in">
             <EmailInspector
               email={analyzedEmail}
               onTranslate={onTranslate}
               onFeedback={onFeedback}
-              onQuickStatusToggle={(id, isSpam) => {
-                setAnalyzedEmail(prev => ({
-                  ...prev,
-                  security: { ...prev.security, is_spam: isSpam }
-                }));
-              }}
+              onQuickStatusToggle={handleQuickStatusToggle}
             />
           </div>
         )}
